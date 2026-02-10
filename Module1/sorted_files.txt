@@ -1,0 +1,4 @@
+total 0
+-rw-rw-r-- 1 revanthvarshan revanthvarshan 0 Feb 10 10:05 a.txt
+-rw-rw-r-- 1 revanthvarshan revanthvarshan 0 Feb 10 10:05 b.txt
+-rw-rw-r-- 1 revanthvarshan revanthvarshan 0 Feb 10 10:05 c.txt
