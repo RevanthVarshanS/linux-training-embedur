@@ -1,0 +1,17 @@
+# Module 2
+
+# Q1
+find . -type f -size +1M > largefiles.txt
+
+# Q2
+sed 's/localhost/127.0.0.1/g' config.txt > updated_config.txt
+
+# Q3
+grep "ERROR" log.txt | grep -v "DEBUG" > filtered_log.txt
+
+# Q4
+ps aux --sort=-%mem | head -n 2
+kill 1773
+
+# Q5
+ip route | grep default | sort

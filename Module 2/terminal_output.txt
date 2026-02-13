@@ -1,0 +1,53 @@
+revanthvarshan@revanth:~/linux-training-embedur$ echo 'qn1'
+qn1
+revanthvarshan@revanth:~/linux-training-embedur$ cd Module2
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ cat largefiles.txt 
+./mercedes-benz-s-580-3840x2160-25488.jpg
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ echo 'qn2'
+qn2
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ cat config.txt 
+
+Server=localhost
+Database=localhost
+Host=localhost
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ sed 's/localhost/127.0.0.1/g' config.txt > updated_config.txt
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ cat updated_config.txt 
+
+Server=127.0.0.1
+Database=127.0.0.1
+Host=127.0.0.1
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ echo 'qn3'
+qn3
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ cat log.txt 
+DEBUG: Starting the application initialization.
+ERROR: Unable to connect to the database.
+INFO: User 'admin' logged in successfully.
+DEBUG: Fetching configuration settings from the server.
+ERROR: DEBUG - Configuration settings could not be applied.
+INFO: Scheduled job 'backup' completed successfully.
+DEBUG: Connection to server timed out. Retrying...
+ERROR: Failed to fetch data from API endpoint '/users'.
+INFO: Maintenance mode activated.
+ERROR: DEBUG - Query execution failed due to a syntax error.
+DEBUG: Reloading application modules.
+ERROR: Missing required parameter in the request.
+INFO: Shutting down the system gracefully.
+DEBUG: Closing unused network connections.
+ERROR: DEBUG - Unexpected server response received.
+
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ cat filtered_log.txt 
+ERROR: Unable to connect to the database.
+ERROR: Failed to fetch data from API endpoint '/users'.
+ERROR: Missing required parameter in the request.
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ echo 'qn4'
+qn4
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ ps aux --sort=-%mem | head -n 2
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+revanth+    1773 16.4 15.1 4175844 607784 ?      Rsl  22:27   0:31 /usr/bin/gnome-shell
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ kill 1773
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ echo 'qn5'
+qn5
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ ip route | grep default | sort
+default via 192.168.64.1 dev enp0s1 proto dhcp src 192.168.64.3 metric 100 
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ 
+
