@@ -1,0 +1,25 @@
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ nano backup_manager.sh
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cat backup_manager.sh 
+#!/bin/bash
+
+SOURCE="$1"
+EXT="$3"
+
+FILES=("$SOURCE"/*"$EXT")
+
+echo "Matching files:"
+echo "${FILES[@]}"
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls
+backup  backup_manager.sh  source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cd backup
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/backup$ ls
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/backup$ cd ..
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cd source 
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ ls
+bigfile.txt  file1.txt  file2.txt  file3.log  file4.txt
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ cd ..
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls
+backup  backup_manager.sh  source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ./backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+Matching files:
+/home/revanthvarshan/linux-training-embedur/Module 3/source/bigfile.txt /home/revanthvarshan/linux-training-embedur/Module 3/source/file1.txt /home/revanthvarshan/linux-training-embedur/Module 3/source/file2.txt /home/revanthvarshan/linux-training-embedur/Module 3/source/file4.txt

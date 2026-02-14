@@ -1,0 +1,62 @@
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ echo 'qn6'
+qn6
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls
+backup  backup_manager.sh  source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ nano backup_manager.sh 
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cat backup_manager.sh 
+#!/bin/bash
+
+SOURCE="$1"
+BACKUP="$2"
+EXT="$3"
+
+if [ ! -d "$SOURCE" ]; then
+    echo "Source does not exist"
+    exit 1
+fi
+
+if [ ! -d "$BACKUP" ]; then
+    mkdir -p "$BACKUP" || { echo "Failed to create backup"; exit 1; }
+fi
+
+FILES=("$SOURCE"/*"$EXT")
+
+if [ ${#FILES[@]} -eq 0 ]; then
+    echo "No matching files found"
+    exit 0
+fi
+
+for file in "${FILES[@]}"
+do
+    cp "$file" "$BACKUP"
+done
+
+echo "Backup Done"
+
+TOTAL_SIZE=0
+
+for file in "${FILES[@]}"
+do
+    size=$(stat -c%s "$file")
+    TOTAL_SIZE=$((TOTAL_SIZE + size))
+done
+
+REPORT="$BACKUP/backup_report.log"
+
+echo "Total files: ${#FILES[@]}" > "$REPORT"
+echo "Total size: $TOTAL_SIZE bytes" >> "$REPORT"
+echo "Backup path: $BACKUP" >> "$REPORT"
+
+echo "Report generated at $REPORT"
+
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ bash backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+Backup Done
+Report generated at /home/revanthvarshan/linux-training-embedur/Module 3/backup/backup_report.log
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cd backup
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/backup$ ls
+backup_report.log  bigfile.txt  file1.txt  file2.txt  file4.txt
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/backup$ cat backup_report.log 
+Total files: 4
+Total size: 51237 bytes
+Backup path: /home/revanthvarshan/linux-training-embedur/Module 3/backup
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/backup$ 

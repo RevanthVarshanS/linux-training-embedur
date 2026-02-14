@@ -1,0 +1,44 @@
+revanthvarshan@revanth:~/linux-training-embedur$ ls
+ Module1  'Module 2'   Module2
+revanthvarshan@revanth:~/linux-training-embedur$ mkdir 'Module 3'
+revanthvarshan@revanth:~/linux-training-embedur$ cd 'Module 3'
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ echo 'qn1'
+qn1
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ mkdir source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ mkdir backup
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls
+backup  source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cd source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ echo "Hello World" > file1.txt
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ echo "Linux Script" > file2.txt
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ echo "Log Data" > file3.log
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ echo "Sample text" > file4.txt
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ dd if=/dev/zero of=bigfile.txt bs=1K count=50
+50+0 records in
+50+0 records out
+51200 bytes (51 kB, 50 KiB) copied, 0.000162466 s, 315 MB/s
+revanthvarshan@revanth:~/linux-training-embedur/Module 3/source$ cd ..
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ nano backup_manager.sh
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls
+backup  backup_manager.sh  source
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cat backup_manager.sh 
+#!/bin/bash
+echo "Source: $1"
+echo "Backup: $2"
+echo "Extension: $3"
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ./backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+bash: ./backup_manager.sh: Permission denied
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ chmod +x backup_manager.sh
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ls -lstr
+total 12
+4 drwxrwxr-x 2 revanthvarshan revanthvarshan 4096 Feb 14 18:09 backup
+4 drwxrwxr-x 2 revanthvarshan revanthvarshan 4096 Feb 14 18:11 source
+4 -rwxrwxr-x 1 revanthvarshan revanthvarshan   69 Feb 14 18:12 backup_manager.sh
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ./backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+Source: /home/revanthvarshan/module3/source
+Backup: /home/revanthvarshan/module3/backup
+Extension: .txt
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ^C
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ 
+

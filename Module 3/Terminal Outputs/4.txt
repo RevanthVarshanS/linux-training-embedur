@@ -1,0 +1,25 @@
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ echo 'qn4'
+qn4
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ nano backup_manager.sh 
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cat backup_manager.sh 
+#!/bin/bash
+
+SOURCE="$1"
+EXT="$3"
+
+FILES=("$SOURCE"/*"$EXT")
+
+echo "Files and sizes:"
+
+for file in "${FILES[@]}"
+do
+    size=$(stat -c%s "$file")
+    echo "$(basename "$file") - $size bytes"
+done
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ bash backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+Files and sizes:
+bigfile.txt - 51200 bytes
+file1.txt - 12 bytes
+file2.txt - 13 bytes
+file4.txt - 12 bytes
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ 

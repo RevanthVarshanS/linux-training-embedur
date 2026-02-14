@@ -1,0 +1,20 @@
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ echo 'qn3'
+qn3
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ nano backup_manager.sh 
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ ./backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+Files count: 4
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cat backup_manager.sh 
+#!/bin/bash
+
+SOURCE="$1"
+EXT="$3"
+
+FILES=("$SOURCE"/*"$EXT")
+
+BACKUP_COUNT=${#FILES[@]}
+export BACKUP_COUNT
+
+echo "Files count: $BACKUP_COUNT"
+
+revanthvarshan@revanth:~/linux-training-embedur/Module 3$ 
+
