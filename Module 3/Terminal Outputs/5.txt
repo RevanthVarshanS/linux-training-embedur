@@ -20,7 +20,7 @@ FILES=("$SOURCE"/*"$EXT")
 
 if [ ${#FILES[@]} -eq 0 ]; then
     echo "No matching files found"
-i    exit 0
+    exit 0
 fi
 
 for file in "${FILES[@]}"; do
