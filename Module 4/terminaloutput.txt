@@ -33,25 +33,10 @@ revanthvarshan@revanth:~/linux-training-embedur/Module 4$ bash params_extraction
 Extraction complete. Output saved to output.txt
 revanthvarshan@revanth:~/linux-training-embedur/Module 4$ ls
 input.txt output.txt params_extraction.sh 
-revanthvarshan@revanth:~/linux-training-embedur/Module 4$ cat head output.txt 
-cat: head: No such file or directory
+revanthvarshan@revanth:~/linux-training-embedur/Module 4$ head -6 output.txt 
           "frame.time": "Dec 31, 2024 12:50:25.890970000 India Standard Time",
             "wlan.fc.type": "0",
             "wlan.fc.subtype": "8",
           "frame.time": "Dec 31, 2024 12:50:25.892357000 India Standard Time",
             "wlan.fc.type": "0",
             "wlan.fc.subtype": "8",
-          "frame.time": "Dec 31, 2024 12:50:25.928606000 India Standard Time",
-            "wlan.fc.type": "0",
-            "wlan.fc.subtype": "8",
-          "frame.time": "Dec 31, 2024 12:50:25.983072000 India Standard Time",
-            "wlan.fc.type": "0",
-            "wlan.fc.subtype": "8",
-          "frame.time": "Dec 31, 2024 12:50:25.983586000 India Standard Time",
-            "wlan.fc.type": "0",
-            "wlan.fc.subtype": "8",
-          "frame.time": "Dec 31, 2024 12:50:25.993337000 India Standard Time",
-            "wlan.fc.type": "0",
-            "wlan.fc.subtype": "8",
-
-
