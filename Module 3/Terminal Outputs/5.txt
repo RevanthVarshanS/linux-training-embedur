@@ -1,7 +1,6 @@
-revanthvarshan@revanth:~/linux-training-embedur/Module 3$ echo 'qn5'
-qn5
-revanthvarshan@revanth:~/linux-training-embedur/Module 3$ nano backup_manager.sh 
-revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cat backup_manager.sh 
+revanthvarshan@revanth:~/linux-training-embedur/Module3$ ls
+backup  backup_manager.sh  source
+revanthvarshan@revanth:~/linux-training-embedur/Module3$ cat backup_manager.sh 
 #!/bin/bash
 
 SOURCE="$1"
@@ -21,18 +20,44 @@ FILES=("$SOURCE"/*"$EXT")
 
 if [ ${#FILES[@]} -eq 0 ]; then
     echo "No matching files found"
-    exit 0
+i    exit 0
 fi
 
-for file in "${FILES[@]}"
-do
-    cp "$file" "$BACKUP"
+for file in "${FILES[@]}"; do
+    filename=$(basename "$file")
+    dest="$BACKUP/$filename"
+
+    if [ -f "$dest" ]; then
+        if [ "$file" -nt "$dest" ]; then
+            cp "$file" "$dest"
+            echo "Overwritten: $filename"
+        else
+            echo "Skipped (newer exists): $filename"
+            continue
+        fi
+    else
+        cp "$file" "$dest"
+        echo "Copied: $filename"
+    fi
 done
 
 echo "Backup Done"
-
-revanthvarshan@revanth:~/linux-training-embedur/Module 3$ bash backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
+revanthvarshan@revanth:~/linux-training-embedur/Module3$ bash backup_manager.sh "$HOME/linux-training-embedur/Module3/source" "$HOME/linux-training-embedur/Module3/backup" ".txt"
+Skipped (newer exists): bigfile.txt
+Skipped (newer exists): file1.txt
+Skipped (newer exists): file2.txt
+Skipped (newer exists): file4.txt
 Backup Done
+revanthvarshan@revanth:~/linux-training-embedur/Module3$ cd source
+revanthvarshan@revanth:~/linux-training-embedur/Module3/source$ vi file1.txt 
+revanthvarshan@revanth:~/linux-training-embedur/Module3/source$ cd ..
+revanthvarshan@revanth:~/linux-training-embedur/Module3$ bash backup_manager.sh "$HOME/linux-training-embedur/Module3/source" "$HOME/linux-training-embedur/Module3/backup" ".txt"
+Skipped (newer exists): bigfile.txt
+Overwritten: file1.txt
+Skipped (newer exists): file2.txt
+Skipped (newer exists): file4.txt
+Backup Done
+
 revanthvarshan@revanth:~/linux-training-embedur/Module 3$ cd backup
 revanthvarshan@revanth:~/linux-training-embedur/Module 3/backup$ ls
 bigfile.txt  file1.txt  file2.txt  file4.txt
