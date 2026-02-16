@@ -82,13 +82,22 @@ if [ ${#FILES[@]} -eq 0 ]; then
     exit 0
 fi
 
-for file in "${FILES[@]}"
-do
-    cp "$file" "$BACKUP"
-done
+for file in "${FILES[@]}"; do
+    filename=$(basename "$file")
+    dest="$BACKUP/$filename"
 
-echo "Backup Done"
-"
+    if [ -f "$dest" ]; then
+        if [ "$file" -nt "$dest" ]; then
+            cp "$file" "$dest"
+            echo "Overwritten: $filename"
+        else
+            echo "Skipped (newer exists): $filename"
+            continue
+        fi
+    else
+        cp "$file" "$dest"
+        echo "Copied: $filename"
+    fi
 
 >> bash backup_manager.sh "$HOME/linux-training-embedur/Module 3/source" "$HOME/linux-training-embedur/Module 3/backup" ".txt"
 #Q6
