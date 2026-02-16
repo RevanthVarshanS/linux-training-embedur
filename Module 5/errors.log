@@ -1,10 +1,1 @@
-Error: Test error message
-Error: File argument (-f) is required.
-Error: File argument (-f) is required.
-Error: File argument (-f) is required.
-Error: File does not exist.
-Error: Keyword cannot be empty.
-Error: Invalid keyword. Only letters, numbers, and underscore allowed.
-Option -k requires an argument.
-Invalid option: -x
-Option -f requires an argument.
+Invalid Keyword!
