@@ -1,56 +1,81 @@
 #!/bin/bash
-#--help using here document
-if [[ "$1" == "--help" ]]; then
+
+ERROR_LOG="errors.log"
+
+#2&3a.HelpMenu (Here Doc)
+if [ "$1" == "--help" ]; then
 cat << EOF
-Usage: $0 [OPTIONS]
+Usage: $0 -d <directory> -k <keyword>
+       $0 -f <file> -k <keyword>
 
 Options:
-  -d <directory>   Directory to search
-  -f <file>        File to search
-  -k <keyword>     Keyword to search
-  --help           Display this help menu
-
-Examples:
-  $0 -d logs -k error
-  $0 -f script.sh -k TODO
+  -d   Directory to search
+  -f   File to search
+  -k   Keyword to search
 EOF
 exit 0
 fi
-# parsing short options
-while getopts ":d:f:k:" opt; do
+
+#2&6.getopts
+while getopts "d:f:k:" opt
+do
     case $opt in
-        d)
-            directory="$OPTARG"
-            ;;
-        f)
-            file="$OPTARG"
-            ;;
-        k)
-            keyword="$OPTARG"
-            ;;
-        \?)
-            echo "Invalid option: -$OPTARG" | tee -a errors.log
-            exit 1
-            ;;
-        :)
-            echo "Option -$OPTARG requires an argument." | tee -a errors.log
-            exit 1
-            ;;
+        d) DIR="$OPTARG" ;;
+        f) FILE="$OPTARG" ;;
+        k) KEY="$OPTARG" ;;
+        *) echo "Invalid option" | tee -a "$ERROR_LOG"
+           exit 1 ;;
     esac
 done
-#here string file search
-if [ -n "$file" ] && [ -n "$keyword" ]; then
-    if [ ! -f "$file" ]; then
-        echo "File does not exist."
+
+#5.Validate keyword 
+if [[ -z "$KEY" || ! "$KEY" =~ ^[a-zA-Z0-9_]+$ ]]; then
+    echo "Invalid keyword!" | tee -a "$ERROR_LOG"
+    exit 1
+fi
+
+#1.RecursiveSearc
+search_recursive() {
+    local dir="$1"
+    local keyword="$2"
+
+    for item in "$dir"/*; do
+        if [ -d "$item" ]; then
+            search_recursive "$item" "$keyword"
+        elif [ -f "$item" ]; then
+            if grep -q "$keyword" "$item"; then
+                echo "Keyword found in: $item"
+            fi
+        fi
+    done
+}
+
+if [ -n "$DIR" ] && [ -n "$KEY" ]; then
+    if [ ! -d "$DIR" ]; then
+        echo "Directory not found!" | tee -a "$ERROR_LOG"
+        exit 1
+    fi
+    search_recursive "$DIR" "$KEY"
+fi
+
+#4.SpecialParameters
+echo "Script name: $0"
+echo "Total arguments: $#"
+echo "All arguments: $@"
+echo "Last command status:$?"
+
+#2&3bFile Search (Here String)
+if [ -n "$FILE" ]; then
+    if [ ! -f "$FILE" ]; then
+        echo "File not found!" | tee -a "$ERROR_LOG"
         exit 1
     fi
 
-    echo "Searching for '$keyword' in $file..."
-
-    while read line; do
-        if grep -q "$keyword" <<< "$line"; then
-            echo "Match found: $line"
+    while read line
+    do
+        grep -q "$KEY" <<< "$line"
+        if [ $? -eq 0 ]; then
+            echo "Match: $line"
         fi
-    done < "$file"
+    done < "$FILE"
 fi
-
