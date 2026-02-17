@@ -47,7 +47,7 @@ revanth+    1773 16.4 15.1 4175844 607784 ?      Rsl  22:27   0:31 /usr/bin/gnom
 revanthvarshan@revanth:~/linux-training-embedur/Module2$ kill 1773
 revanthvarshan@revanth:~/linux-training-embedur/Module2$ echo 'qn5'
 qn5
-revanthvarshan@revanth:~/linux-training-embedur/Module2$ ip route | grep default | sort
-default via 192.168.64.1 dev enp0s1 proto dhcp src 192.168.64.3 metric 100 
+revanthvarshan@revanth:~/linux-training-embedur/Module2$ ip route | grep default | awk '{print $3}' | sort
+192.168.64.1
 revanthvarshan@revanth:~/linux-training-embedur/Module2$ 
 
