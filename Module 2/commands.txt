@@ -14,4 +14,4 @@ ps aux --sort=-%mem | head -n 2
 kill 1773
 
 # Q5
-ip route | grep default | sort
+ip route | grep default | awk '{print $3}' | sort
